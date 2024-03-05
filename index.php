@@ -3,7 +3,10 @@
     include_once 'class/register.php';
     $re = new register();
 
-    
+    if(isset($_GET['delStd'])) {
+        $id = base64_decode($_GET['delStd']);
+        $delStudent = $re->deleteStudent($id);
+    }
 
 ?>
 
@@ -27,20 +30,18 @@
             <div class="col-md-12">
                 <div class="card shadow">
                     <?php 
-                    
-                    if (isset($register)) {
+                    if (isset($delStudent)) {
                         ?>
-                        <div class="alert alert-danger alert-dismissiblefade show" role="alert">
-                            <strong><?= $register ?></strong>
+                        <div class="alert alert-success alert-dismissiblefade show" role="alert">
+                            <strong><?= $delStudent ?></strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <?php
-
                     }
-                    
                     ?>
+                    
                     <div class="card-header">
                         <div class="row d-flex align-items-center">
                             <div class="col-md-6">
@@ -78,7 +79,7 @@
                                                 <td><?= $row['address'] ?></td>
                                                 <td>
                                                     <a href="edit.php?id=<?= base64_encode($row['id']) ?>" class="btn btn-primary">Edit</a>
-                                                    <a href="delete.php?id=<?= $row['id'] ?>" class="btn btn-danger">Delete</a>
+                                                    <a href="?delStd=<?=base64_encode($row['id'])?>" onclick='return confirm("Apakah Kamu Yakin Untuk Menghapusnya?")' class="btn btn-danger">Delete</a>
                                                 </td>
                                             </tr>
                                         </tbody>

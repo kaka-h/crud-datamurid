@@ -111,6 +111,17 @@
                 return $msg;
             }
         }
+
+        public function deleteStudent($id) {
+            $del_query = "DELETE FROM tbl_register WHERE id = $id";
+            $del = $this->db->delete($del_query);
+            if ($del) {
+                $msg = 'Delete Data Berhasil';
+                return $msg;
+            } else {
+                $msg = 'Delete Data Gagal';
+            }
+        }
         
     }
 ?>
